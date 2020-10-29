@@ -30,8 +30,10 @@ namespace ListScreener.Page_Objects
 
         public void SinglMail(string mail)
         {
-            _webDriver.FindElement(_fieldForMails).SendKeys(mail);
-            _webDriver.FindElement(_verifyButton).Click();
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementToBeClickable(_fieldForMails)).SendKeys(mail);
+            Thread.Sleep(700);
+            wait.Until(ExpectedConditions.ElementToBeClickable(_verifyButton)).Click();
         }
 
         public string messageSinglMail()

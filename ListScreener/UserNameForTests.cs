@@ -34,4 +34,15 @@ namespace ListScreener.Page_Objects
         public const string EXPECTED_STATUS_FILE = "Completed";
         public const string EXPECTED_PROGRESS_FILE = "100 %";
     }
+
+
+    public static class DataForCreateUser
+    {
+        public const string EMAIL = "celladecummo-1094@yopmail.com";
+        public const string USER_NAME = "1elladecummo";
+        public const string FIRST_NAME = "1elladecummo";
+        public const string LAST_NAME = "1elladecummo";
+        public const string PASSWORD = "Test123!";
+        public const string PASSWORD_EDITED = "Admin123!";
+    }
 }

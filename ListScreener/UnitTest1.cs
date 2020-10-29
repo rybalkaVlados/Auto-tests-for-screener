@@ -45,7 +45,7 @@ namespace ListScreener
         {
             var mainMenu = new HomePagePageObject(_webDriver);
             mainMenu.VerificationPage();
-
+            
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
             verifyMenu.SinglMail(MailsForSingleMail.MAIL_VALID);
                 
@@ -125,9 +125,41 @@ namespace ListScreener
             Assert.AreEqual(ActualProgressUploadedFile, MailsForBulkVerification.EXPECTED_PROGRESS_FILE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
         }
 
+        [Test]     //Creating and deleting new user 
+        public void CreateNewUser()
+        {
+            var mainMenu = new HomePagePageObject(_webDriver);
+            mainMenu.GoToUsersPage();
 
+            var userMenu = new UsersPageObject(_webDriver);
+            userMenu.GoToPopupCreateUser();
 
+            var popupUserMenu = new FormCreateUserPageObject(_webDriver);
+            popupUserMenu.fillFieldForCreateUser(
+                DataForCreateUser.EMAIL,
+                DataForCreateUser.USER_NAME,
+                DataForCreateUser.FIRST_NAME,
+                DataForCreateUser.LAST_NAME,
+                DataForCreateUser.PASSWORD);
 
+            string getFirstName = userMenu.GetFirstName();
+            Assert.AreEqual(getFirstName, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+
+            userMenu.EditUserPassword();
+
+            var popupEditUser = new FormEditUserPageObject(_webDriver);
+            popupEditUser.EditUserPassword(DataForCreateUser.PASSWORD_EDITED);
+
+            string getFirstNameEdited = userMenu.GetFirstName();
+            Assert.AreEqual(getFirstNameEdited, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);          
+
+            userMenu.DeleteUser();
+
+            string getFirstNameDeleted = userMenu.GetFirstName();
+            Assert.AreNotEqual(getFirstNameDeleted, DataForCreateUser.FIRST_NAME);
+        }
+
+           
 
 
         [TearDown]

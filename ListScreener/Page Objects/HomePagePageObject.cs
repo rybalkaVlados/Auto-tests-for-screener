@@ -16,6 +16,7 @@ namespace ListScreener.Page_Objects
         //StartVerification
         private readonly By _StartVerificationButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']");
 
+        private readonly By _usersTab = By.XPath("//ul[@class='menu ng-tns-c64-4']/li[5]");
 
 
 
@@ -37,6 +38,13 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_StartVerificationButton).Click();
             Thread.Sleep(500);
             return new SingleVerificationPageObject(_webDriver);   
+        }
+
+        public UsersPageObject GoToUsersPage()
+        {
+            _webDriver.FindElement(_usersTab).Click();
+            Thread.Sleep(1500);
+            return new UsersPageObject(_webDriver);
         }
 
 
