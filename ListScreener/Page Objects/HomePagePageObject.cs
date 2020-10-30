@@ -18,6 +18,10 @@ namespace ListScreener.Page_Objects
 
         private readonly By _usersTab = By.XPath("//ul[@class='menu ng-tns-c64-4']/li[5]");
 
+        private readonly By _profileIcon = By.XPath("//app-dashboard-layout[@class='ng-star-inserted']/mat-toolbar/button");
+
+        private readonly By _accountButton = By.XPath("//div[@class='mat-menu-content ng-tns-c58-3']/button");
+
 
 
         public HomePagePageObject(IWebDriver webDriver)
@@ -45,6 +49,14 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_usersTab).Click();
             Thread.Sleep(1500);
             return new UsersPageObject(_webDriver);
+        }
+
+        public AccountPageObject GoToAccountPage()
+        {
+            _webDriver.FindElement(_profileIcon).Click();
+            Thread.Sleep(700);
+            _webDriver.FindElement(_accountButton).Click();
+            return new AccountPageObject(_webDriver);
         }
 
 

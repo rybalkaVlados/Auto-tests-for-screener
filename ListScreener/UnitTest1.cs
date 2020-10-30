@@ -34,7 +34,7 @@ namespace ListScreener
             var mainMenu = new HomePagePageObject(_webDriver);
             string TrueMessage = mainMenu.GetWelcomeMessage();
             Assert.AreEqual(TrueMessage, UserNameForTests.ACTUAL_MESSAGE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
-                
+
         }
 
 
@@ -45,10 +45,10 @@ namespace ListScreener
         {
             var mainMenu = new HomePagePageObject(_webDriver);
             mainMenu.VerificationPage();
-            
+
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
             verifyMenu.SinglMail(MailsForSingleMail.MAIL_VALID);
-                
+
             string ActualAnswerSingleMail = verifyMenu.messageSinglMail();
             Assert.AreEqual(ActualAnswerSingleMail, MailsForSingleMail.VALID_EXPECTED_ANSWER, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
         }
@@ -119,7 +119,7 @@ namespace ListScreener
 
             string ActualStatusUploadedFile = bulkVerifyMenu.checkingStatusUploadedFile();
             Assert.AreEqual(ActualStatusUploadedFile, MailsForBulkVerification.EXPECTED_STATUS_FILE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
-            
+
 
             string ActualProgressUploadedFile = bulkVerifyMenu.checkingProgressUploadedFile();
             Assert.AreEqual(ActualProgressUploadedFile, MailsForBulkVerification.EXPECTED_PROGRESS_FILE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
@@ -151,7 +151,7 @@ namespace ListScreener
             popupEditUser.EditUserPassword(DataForCreateUser.PASSWORD_EDITED);
 
             string getFirstNameEdited = userMenu.GetFirstName();
-            Assert.AreEqual(getFirstNameEdited, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);          
+            Assert.AreEqual(getFirstNameEdited, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
 
             userMenu.DeleteUser();
 
@@ -159,7 +159,30 @@ namespace ListScreener
             Assert.AreNotEqual(getFirstNameDeleted, DataForCreateUser.FIRST_NAME);
         }
 
-           
+
+
+        [Test]
+        public void ChangePasswordAdmin()
+        {
+            var mainMenu = new HomePagePageObject(_webDriver);
+            mainMenu.GoToAccountPage();
+
+            var accountMenu = new AccountPageObject(_webDriver);
+            accountMenu.ChangePassword();
+
+            var changePasswordForm = new ChangePasswordPageObject(_webDriver);
+            changePasswordForm.ChangePasswordForm(
+                DataForChangePassword.CURRENT_PASSWORD,
+                DataForChangePassword.NEW_PASSWORD,
+                DataForChangePassword.NEW_PASSWORD);
+
+            accountMenu.ChangePassword();
+
+            changePasswordForm.ChangePasswordBack(
+                DataForChangePassword.NEW_PASSWORD,
+                DataForChangePassword.CURRENT_PASSWORD,
+                DataForChangePassword.CURRENT_PASSWORD);
+        }
 
 
         [TearDown]

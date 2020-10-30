@@ -45,4 +45,11 @@ namespace ListScreener.Page_Objects
         public const string PASSWORD = "Test123!";
         public const string PASSWORD_EDITED = "Admin123!";
     }
+
+
+    public static class DataForChangePassword
+    {
+        public const string CURRENT_PASSWORD = "Admin123!";
+        public const string NEW_PASSWORD = "Test123!";
+    }
 }
