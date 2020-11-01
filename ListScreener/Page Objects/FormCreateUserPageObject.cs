@@ -35,7 +35,7 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_lastNameField).SendKeys(lastName);
             _webDriver.FindElement(_passwordField).SendKeys(password);
             _webDriver.FindElement(_createButton).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4500);
             return new UsersPageObject(_webDriver);
         }
 

@@ -54,7 +54,7 @@ namespace ListScreener.Page_Objects
 
         public void DeleteUser()
         {
-            Thread.Sleep(1500);
+            Thread.Sleep(3500);
             _webDriver.FindElement(_deleteUser).Click();
             WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(1));
             wait.Until(ExpectedConditions.ElementIsVisible(_yesButton)).Click();
