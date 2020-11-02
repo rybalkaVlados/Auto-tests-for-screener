@@ -10,17 +10,15 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        //Checking that the welcome message is displayed
+
         private readonly By _welcomeMessage = By.XPath("//div[@class='start ng-star-inserted']/h2");
-
-        //StartVerification
         private readonly By _StartVerificationButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']");
-
-        private readonly By _usersTab = By.XPath("//ul[@class='menu ng-tns-c64-4']/li[5]");
-
+        private readonly By _usersTab = By.XPath("//span[text()='Users']");
         private readonly By _profileIcon = By.XPath("//app-dashboard-layout[@class='ng-star-inserted']/mat-toolbar/button");
-
         private readonly By _accountButton = By.XPath("//div[@class='mat-menu-content ng-tns-c58-3']/button");
+        private readonly By _logOutButton = By.XPath("//span[text()='Log out']");
+        private readonly By _statisticPage = By.XPath("//span[text()='Statistics']");
+
 
 
 
@@ -59,6 +57,19 @@ namespace ListScreener.Page_Objects
             return new AccountPageObject(_webDriver);
         }
 
+        public AuthorizationPageObject LogOut()
+        {
+            _webDriver.FindElement(_profileIcon).Click();
+            Thread.Sleep(700);
+            _webDriver.FindElement(_logOutButton).Click();
+            return new AuthorizationPageObject(_webDriver);
+        }
+
+        public StatisticsPageObject StatisticPage()
+        {
+            _webDriver.FindElement(_statisticPage).Click();
+            return new StatisticsPageObject(_webDriver);
+        } 
 
 
     }

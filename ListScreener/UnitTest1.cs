@@ -17,12 +17,16 @@ namespace ListScreener
         public void Setup()
         {
             _webDriver = new OpenQA.Selenium.Chrome.ChromeDriver();
-            _webDriver.Navigate().GoToUrl("https://ev-ui.anuitexdevelopment.com/#/auth/login");
+            _webDriver.Navigate().GoToUrl("https://ev-ui.anuitexdevelopment.com/#/home/main");
             _webDriver.Manage().Window.Maximize();
 
+            var defaultPage = new DefaultPageObject(_webDriver);
+            defaultPage.LogIn();
+
             var authPage = new AuthorizationPageObject(_webDriver);
-            authPage.SignIn(UserNameForTests.LOGIN, UserNameForTests.PASSWORD);
-            Thread.Sleep(1500);
+            authPage.SignIn(
+                UserNameForTests.LOGIN, 
+                UserNameForTests.PASSWORD);
         }
 
 
@@ -33,8 +37,10 @@ namespace ListScreener
         {
             var mainMenu = new HomePagePageObject(_webDriver);
             string TrueMessage = mainMenu.GetWelcomeMessage();
-            Assert.AreEqual(TrueMessage, UserNameForTests.ACTUAL_MESSAGE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
-
+            Assert.AreEqual(
+                TrueMessage, 
+                UserNameForTests.ACTUAL_MESSAGE, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
         }
 
 
@@ -47,10 +53,17 @@ namespace ListScreener
             mainMenu.VerificationPage();
 
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(MailsForSingleMail.MAIL_VALID);
+            verifyMenu.SinglMail(
+                MailsForSingleMail.MAIL_VALID);
 
-            string ActualAnswerSingleMail = verifyMenu.messageSinglMail();
-            Assert.AreEqual(ActualAnswerSingleMail, MailsForSingleMail.VALID_EXPECTED_ANSWER, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+            string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
+            Assert.AreEqual(
+                ActualAnswerSingleMail, 
+                MailsForSingleMail.VALID_EXPECTED_ANSWER, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+
+            formSingleMail.CloseForm();
         }
 
 
@@ -63,10 +76,17 @@ namespace ListScreener
             mainMenu.VerificationPage();
 
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(MailsForSingleMail.MAIL_INVALID);
+            verifyMenu.SinglMail(
+                MailsForSingleMail.MAIL_INVALID);
 
-            string ActualAnswerSingleMail = verifyMenu.messageSinglMail();
-            Assert.AreEqual(ActualAnswerSingleMail, MailsForSingleMail.INVALID_EXPECTED_ANSWER, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+            string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
+            Assert.AreEqual(
+                ActualAnswerSingleMail, 
+                MailsForSingleMail.INVALID_EXPECTED_ANSWER, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+
+            formSingleMail.CloseForm();
         }
 
 
@@ -79,10 +99,17 @@ namespace ListScreener
             mainMenu.VerificationPage();
 
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(MailsForSingleMail.MAIL_THREAT);
+            verifyMenu.SinglMail(
+                MailsForSingleMail.MAIL_THREAT);
 
-            string ActualAnswerSingleMail = verifyMenu.messageSinglMail();
-            Assert.AreEqual(ActualAnswerSingleMail, MailsForSingleMail.THREAT_EXPECTED_ANSWER, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+            string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
+            Assert.AreEqual(
+                ActualAnswerSingleMail, 
+                MailsForSingleMail.THREAT_EXPECTED_ANSWER, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+
+            formSingleMail.CloseForm();
         }
 
 
@@ -95,10 +122,17 @@ namespace ListScreener
             mainMenu.VerificationPage();
 
             var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(MailsForSingleMail.MAIL_DESCRETIONARY);
+            verifyMenu.SinglMail(
+                MailsForSingleMail.MAIL_DESCRETIONARY);
 
-            string ActualAnswerSingleMail = verifyMenu.messageSinglMail();
-            Assert.AreEqual(ActualAnswerSingleMail, MailsForSingleMail.DESCRETIONARY_EXPECTED_ANSWER, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+            string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
+            Assert.AreEqual(
+                ActualAnswerSingleMail, 
+                MailsForSingleMail.DESCRETIONARY_EXPECTED_ANSWER, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+
+            formSingleMail.CloseForm();
         }
 
 
@@ -114,15 +148,22 @@ namespace ListScreener
             verifyMenu.GoToBulkVerification();
 
             var bulkVerifyMenu = new BulkVerificationPageObject(_webDriver);
-            bulkVerifyMenu.uploadFileFromComputer(MailsForBulkVerification.ONE_MAIL_TXT);
+            bulkVerifyMenu.uploadFileFromComputer(
+                MailsForBulkVerification.ONE_MAIL_TXT);
             Thread.Sleep(700);
 
             string ActualStatusUploadedFile = bulkVerifyMenu.checkingStatusUploadedFile();
-            Assert.AreEqual(ActualStatusUploadedFile, MailsForBulkVerification.EXPECTED_STATUS_FILE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            Assert.AreEqual(
+                ActualStatusUploadedFile, 
+                MailsForBulkVerification.EXPECTED_STATUS_FILE, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
 
 
             string ActualProgressUploadedFile = bulkVerifyMenu.checkingProgressUploadedFile();
-            Assert.AreEqual(ActualProgressUploadedFile, MailsForBulkVerification.EXPECTED_PROGRESS_FILE, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            Assert.AreEqual(
+                ActualProgressUploadedFile, 
+                MailsForBulkVerification.EXPECTED_PROGRESS_FILE, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
         }
 
         [Test]     //Creating and deleting new user 
@@ -143,20 +184,29 @@ namespace ListScreener
                 DataForCreateUser.PASSWORD);
 
             string getFirstName = userMenu.GetFirstName();
-            Assert.AreEqual(getFirstName, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            Assert.AreEqual(
+                getFirstName, 
+                DataForCreateUser.FIRST_NAME, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
 
             userMenu.EditUserPassword();
 
             var popupEditUser = new FormEditUserPageObject(_webDriver);
-            popupEditUser.EditUserPassword(DataForCreateUser.PASSWORD_EDITED);
+            popupEditUser.EditUserPassword(
+                DataForCreateUser.PASSWORD_EDITED);
 
             string getFirstNameEdited = userMenu.GetFirstName();
-            Assert.AreEqual(getFirstNameEdited, DataForCreateUser.FIRST_NAME, MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
+            Assert.AreEqual(
+                getFirstNameEdited, 
+                DataForCreateUser.FIRST_NAME, 
+                MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
 
             userMenu.DeleteUser();
 
             string getFirstNameDeleted = userMenu.GetFirstName();
-            Assert.AreNotEqual(getFirstNameDeleted, DataForCreateUser.FIRST_NAME);
+            Assert.AreNotEqual(
+                getFirstNameDeleted, 
+                DataForCreateUser.FIRST_NAME);
         }
 
 
@@ -183,6 +233,132 @@ namespace ListScreener
                 DataForChangePassword.CURRENT_PASSWORD,
                 DataForChangePassword.CURRENT_PASSWORD);
         }
+
+
+
+        [Test]
+        public void CheckStatisticAfterUploadingFile()
+        {
+            var mainMenu = new HomePagePageObject(_webDriver);
+            mainMenu.GoToUsersPage();
+
+            var userMenu = new UsersPageObject(_webDriver);
+            userMenu.GoToPopupCreateUser();
+
+            var popupUserMenu = new FormCreateUserPageObject(_webDriver);
+            popupUserMenu.fillFieldForCreateUser(
+                DataForCreateUser.EMAIL,
+                DataForCreateUser.USER_NAME,
+                DataForCreateUser.FIRST_NAME,
+                DataForCreateUser.LAST_NAME,
+                DataForCreateUser.PASSWORD);
+
+            mainMenu.LogOut();
+
+            var defaultPage = new DefaultPageObject(_webDriver);
+            defaultPage.LogIn();
+
+            var authPage = new AuthorizationPageObject(_webDriver);
+            authPage.SignIn(
+                UserNameForTests.LOGIN_USER,
+                UserNameForTests.PASSWORD_USER);
+
+            mainMenu.VerificationPage();
+
+            var verifyMenu = new SingleVerificationPageObject(_webDriver);
+            verifyMenu.SinglMail(
+                MailsForSingleMail.MAIL_VALID);
+
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+            formSingleMail.CloseForm();
+
+            verifyMenu.GoToBulkVerification();
+
+            var bulkVerifyMenu = new BulkVerificationPageObject(_webDriver);
+            bulkVerifyMenu.uploadFileFromComputer(
+                MailsForBulkVerification.CHECK_STATISTIC_MAIL);
+            Thread.Sleep(700);
+
+            mainMenu.StatisticPage();
+            Thread.Sleep(1500);
+
+            var statisticsMenu = new StatisticsPageObject(_webDriver);
+            string getVerifiedMails = statisticsMenu.getVerifiedMails();
+            Assert.AreEqual(
+                getVerifiedMails,
+                DataStatistic.VERIFIED_MAILS,
+                DataStatistic.ERROR_STATISTICS);
+            string getValid = statisticsMenu.getValid();
+            Assert.AreEqual(
+                getValid,
+                DataStatistic.VALID,
+                DataStatistic.ERROR_STATISTICS);
+            string getInvalid = statisticsMenu.getInvalid();
+            Assert.AreEqual(
+                getInvalid,
+                DataStatistic.INVALID,
+                DataStatistic.ERROR_STATISTICS);
+            string getBulkVerification = statisticsMenu.getBulkVerification();
+            Assert.AreEqual(
+                getBulkVerification,
+                DataStatistic.BULK_VERIFICATION,
+                DataStatistic.ERROR_STATISTICS);
+            string getVerificationLists = statisticsMenu.getVerificationLists();
+            Assert.AreEqual(
+                getVerificationLists,
+                DataStatistic.VERIFICATION_LISTS,
+                DataStatistic.ERROR_STATISTICS);
+            string getSingleVerification = statisticsMenu.getSingleVerification();
+            Assert.AreEqual(
+                getSingleVerification,
+                DataStatistic.SINGLE_VERIFICATION,
+                DataStatistic.ERROR_STATISTICS);
+            string getTotal = statisticsMenu.getTotal();
+            Assert.AreEqual(
+                getTotal,
+                DataStatistic.TOTAL,
+                DataStatistic.ERROR_STATISTICS);
+            string getAcceptAll = statisticsMenu.getAcceptAll();
+            Assert.AreEqual(
+                getAcceptAll,
+                DataStatistic.ACCEPT_ALL,
+                DataStatistic.ERROR_STATISTICS);
+            string getRole = statisticsMenu.getRole();
+            Assert.AreEqual(
+                getRole,
+                DataStatistic.ROLE,
+                DataStatistic.ERROR_STATISTICS);
+            string getSpam = statisticsMenu.getSpam();
+            Assert.AreEqual(
+                 getSpam,
+                DataStatistic.SPAM,
+                DataStatistic.ERROR_STATISTICS);
+            string getDisposable = statisticsMenu.getDisposable();
+            Assert.AreEqual(
+                getDisposable,
+                DataStatistic.DISPOSABLE,
+                DataStatistic.ERROR_STATISTICS);
+
+            mainMenu.LogOut();
+
+            defaultPage.LogIn();
+
+            authPage.SignIn(
+                UserNameForTests.LOGIN,
+                UserNameForTests.PASSWORD);
+
+            mainMenu.GoToUsersPage();
+
+            userMenu.DeleteUser();
+
+            string getFirstNameDeleted = userMenu.GetFirstName();
+            Assert.AreNotEqual(
+                getFirstNameDeleted,
+                DataForCreateUser.FIRST_NAME);
+        }
+
+
+
 
 
         [TearDown]

@@ -11,9 +11,10 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _fieldEmail = By.Id("mat-input-0");
-        private readonly By _fieldPassword = By.Id("mat-input-1");
-        private readonly By _loginButton = By.XPath("//span[@class='mat-button-wrapper']");
+        private readonly By _fieldEmail = By.XPath("//input[@formcontrolname='email']");
+        private readonly By _fieldPassword = By.XPath("//input[@formcontrolname='password']");
+        private readonly By _loginButton = By.XPath("//span[text()='Log in']");
+
         
 
 
@@ -30,6 +31,7 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_fieldEmail).SendKeys(login);
             _webDriver.FindElement(_fieldPassword).SendKeys(password);
             _webDriver.FindElement(_loginButton).Click();
+            Thread.Sleep(1500);
 
             return new HomePagePageObject(_webDriver);
         }
