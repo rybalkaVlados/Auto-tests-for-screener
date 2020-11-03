@@ -20,10 +20,11 @@ namespace ListScreener.Page_Objects
 
 
 
-        public void ChangePassword()
+        public ChangePasswordPageObject ChangePassword()
         {
             Thread.Sleep(500);
             _WebDriver.FindElement(_changePasswordButton).Click();
+            return new ChangePasswordPageObject(_WebDriver);
         } 
     }
 }

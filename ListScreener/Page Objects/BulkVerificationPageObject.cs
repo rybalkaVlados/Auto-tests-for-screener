@@ -25,25 +25,31 @@ namespace ListScreener.Page_Objects
         }
 
 
-        public void uploadFileFromComputer(string fileTXT)
+        public HomePagePageObject uploadFileFromComputer(string fileTXT)
         {
-            WebDriverWait wait = new WebDriverWait(_WebDriver, TimeSpan.FromSeconds(2000));
-      
             _WebDriver.FindElement(_dropZone).SendKeys(fileTXT);
-            Thread.Sleep(1500);
-            wait.Until(ExpectedConditions.ElementToBeClickable(_startProcessing)).Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(_downloadFile)).Click();            
+
+            WaitUntil.WaitElement(_WebDriver, _startProcessing);
+            _WebDriver.FindElement(_startProcessing).Click();
+
+            WaitUntil.WaitElement(_WebDriver, _downloadFile);
+            _WebDriver.FindElement(_downloadFile).Click();
+            
+            return new HomePagePageObject(_WebDriver);
         }
 
         public string checkingStatusUploadedFile()
         {
+            WaitUntil.WaitElement(_WebDriver, _checkingStatusFile);
             string GetStatusFile = _WebDriver.FindElement(_checkingStatusFile).Text;
+          
             return GetStatusFile;
         }
 
         public string checkingProgressUploadedFile()
         {
             string GetProgressFile = _WebDriver.FindElement(_checkingProgressFile).Text;
+         
             return GetProgressFile;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenQA.Selenium.Support.UI;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace ListScreener.Page_Objects
 
         public const string LOGIN_USER = "celladecummo-1094@yopmail.com";
         public const string PASSWORD_USER = "Test123!";
+        public const string URL = "https://ev-ui.anuitexdevelopment.com/#/home/main";
 
     }
 
@@ -74,4 +76,5 @@ namespace ListScreener.Page_Objects
         public const string DISPOSABLE = "1";
         public const string ERROR_STATISTICS = "Fields don't match";
     }
+
 }

@@ -31,6 +31,7 @@ namespace ListScreener.Page_Objects
 
         public string GetWelcomeMessage()
         {
+            WaitUntil.WaitElement(_webDriver, _welcomeMessage);
             string GetMessage = _webDriver.FindElement(_welcomeMessage).Text;
             return GetMessage;
         }
@@ -38,31 +39,34 @@ namespace ListScreener.Page_Objects
         public SingleVerificationPageObject VerificationPage()
         {
             _webDriver.FindElement(_StartVerificationButton).Click();
-            Thread.Sleep(500);
             return new SingleVerificationPageObject(_webDriver);   
         }
 
         public UsersPageObject GoToUsersPage()
         {
             _webDriver.FindElement(_usersTab).Click();
-            Thread.Sleep(1500);
+     
             return new UsersPageObject(_webDriver);
         }
 
         public AccountPageObject GoToAccountPage()
         {
             _webDriver.FindElement(_profileIcon).Click();
-            Thread.Sleep(700);
+       
+            WaitUntil.WaitElement(_webDriver, _accountButton);
             _webDriver.FindElement(_accountButton).Click();
+     
             return new AccountPageObject(_webDriver);
         }
 
-        public AuthorizationPageObject LogOut()
+        public DefaultPageObject LogOut()
         {
             _webDriver.FindElement(_profileIcon).Click();
-            Thread.Sleep(700);
+
+            WaitUntil.WaitElement(_webDriver, _logOutButton);
             _webDriver.FindElement(_logOutButton).Click();
-            return new AuthorizationPageObject(_webDriver);
+
+            return new DefaultPageObject(_webDriver);
         }
 
         public StatisticsPageObject StatisticPage()

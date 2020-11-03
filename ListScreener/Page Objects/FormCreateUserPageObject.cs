@@ -28,6 +28,7 @@ namespace ListScreener.Page_Objects
 
         public UsersPageObject fillFieldForCreateUser(string email, string userName, string firstName, string lastName, string password)
         {
+            WaitUntil.WaitElement(_webDriver, _emailField);
             _webDriver.FindElement(_emailField).SendKeys(email);
             _webDriver.FindElement(_userNameField).Clear();
             _webDriver.FindElement(_userNameField).SendKeys(userName);
@@ -35,7 +36,6 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_lastNameField).SendKeys(lastName);
             _webDriver.FindElement(_passwordField).SendKeys(password);
             _webDriver.FindElement(_createButton).Click();
-            Thread.Sleep(4500);
             return new UsersPageObject(_webDriver);
         }
 

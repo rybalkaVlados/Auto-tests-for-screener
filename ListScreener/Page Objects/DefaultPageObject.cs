@@ -22,9 +22,9 @@ namespace ListScreener.Page_Objects
 
         public AuthorizationPageObject LogIn()
         {
-            Thread.Sleep(3000);
+            WaitUntil.WaitElement(_webDriver, _goToAuth);
             _webDriver.FindElement(_goToAuth).Click();
-            Thread.Sleep(1000);
+
             return new AuthorizationPageObject(_webDriver);
         }
     }

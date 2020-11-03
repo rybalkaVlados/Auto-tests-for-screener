@@ -22,17 +22,16 @@ namespace ListScreener.Page_Objects
 
         public SingleVerificationPageObject CloseForm()
         {
+            WaitUntil.WaitElement(_webDriver, _closeButton);
             _webDriver.FindElement(_closeButton).Click();
             return new SingleVerificationPageObject(_webDriver);
         }
 
 
-
-
         public string messageSinglMail()
         {
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            string GetAnswer = wait.Until(ExpectedConditions.ElementIsVisible(_answerSingleMail)).Text;
+            WaitUntil.WaitElement(_webDriver, _answerSingleMail);
+            string GetAnswer = _webDriver.FindElement(_answerSingleMail).Text;
             return GetAnswer;
         }
     }

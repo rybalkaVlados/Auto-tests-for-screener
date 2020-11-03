@@ -26,18 +26,23 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_newPassword).SendKeys(newPassword);
             _webDriver.FindElement(_confirmNewPassword).SendKeys(confirmNewPassword);
             _webDriver.FindElement(_changeButton).Click();
-            Thread.Sleep(1000);
+
             return new AccountPageObject(_webDriver);
         }
 
         public AccountPageObject ChangePasswordBack(string newPassword, string currentPassword, string confirmNewPassword)
         {
-
+            WaitUntil.WaitElement(_webDriver, _currentPassword);
             _webDriver.FindElement(_currentPassword).SendKeys(newPassword);
+
+            WaitUntil.WaitElement(_webDriver, _newPassword);
             _webDriver.FindElement(_newPassword).SendKeys(currentPassword);
+          
             _webDriver.FindElement(_confirmNewPassword).SendKeys(confirmNewPassword);
             _webDriver.FindElement(_changeButton).Click();
-            Thread.Sleep(1000);
+
+            WaitUntil.WaitSomeInterval();
+
             return new AccountPageObject(_webDriver);
         }
     }

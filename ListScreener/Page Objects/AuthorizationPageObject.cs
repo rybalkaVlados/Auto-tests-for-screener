@@ -28,6 +28,7 @@ namespace ListScreener.Page_Objects
 
         public HomePagePageObject SignIn(string login, string password)
         {
+            WaitUntil.WaitElement(_webDriver, _fieldEmail);
             _webDriver.FindElement(_fieldEmail).SendKeys(login);
             _webDriver.FindElement(_fieldPassword).SendKeys(password);
             _webDriver.FindElement(_loginButton).Click();

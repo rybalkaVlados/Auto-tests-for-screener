@@ -24,9 +24,11 @@ namespace ListScreener.Page_Objects
 
         public UsersPageObject EditUserPassword(string passwordEdit)
         {
+            WaitUntil.WaitElement(_webDriver, _checkBox);
             _webDriver.FindElement(_checkBox).Click();
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(1));
-            wait.Until(ExpectedConditions.ElementToBeClickable(_passwordField)).SendKeys(passwordEdit);
+
+            WaitUntil.WaitElement(_webDriver, _passwordField);
+            _webDriver.FindElement(_passwordField).SendKeys(passwordEdit);
             _webDriver.FindElement(_saveButton).Click();
             return new UsersPageObject(_webDriver);
         }

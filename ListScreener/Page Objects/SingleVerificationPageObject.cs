@@ -31,12 +31,9 @@ namespace ListScreener.Page_Objects
 
         public FormAfterSingleVerify SinglMail(string mail)
         {
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
-            wait.Until(ExpectedConditions.ElementToBeClickable(_fieldForMails)).SendKeys(mail);
-            Thread.Sleep(700);
-            wait.Until(ExpectedConditions.ElementToBeClickable(_verifyButton)).Click();
-            Thread.Sleep(2000);
-
+            WaitUntil.WaitElement(_webDriver, _fieldForMails);
+            _webDriver.FindElement(_fieldForMails).SendKeys(mail);
+            _webDriver.FindElement(_verifyButton).Click();
             return new FormAfterSingleVerify(_webDriver);
         }
 
