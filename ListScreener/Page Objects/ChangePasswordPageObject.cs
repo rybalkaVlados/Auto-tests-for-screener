@@ -32,7 +32,7 @@ namespace ListScreener.Page_Objects
 
         public AccountPageObject ChangePasswordBack(string newPassword, string currentPassword, string confirmNewPassword)
         {
-            WaitUntil.WaitElement(_webDriver, _currentPassword);
+            WaitUntil.WaitSomeInterval(2);
             _webDriver.FindElement(_currentPassword).SendKeys(newPassword);
 
             WaitUntil.WaitElement(_webDriver, _newPassword);

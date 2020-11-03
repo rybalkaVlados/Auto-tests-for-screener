@@ -5,35 +5,9 @@ using System.Threading;
 
 namespace ListScreener
 {
-    public class ListscreenerTests
+    [TestFixture]
+    public class ListscreenerTests : BaseTest
     {
-        private IWebDriver _webDriver;
-
-
-
-
-
-        [SetUp]
-        public void Setup()
-        {
-            _webDriver = new OpenQA.Selenium.Chrome.ChromeDriver();
-           
-            _webDriver.Navigate().GoToUrl(UserNameForTests.URL);
-            WaitUntil.ShouldLocate(_webDriver, UserNameForTests.URL);
-           
-            _webDriver.Manage().Window.Maximize();
-
-            var defaultPage = new DefaultPageObject(_webDriver);
-
-            defaultPage
-                .LogIn()
-                .SignIn(
-                UserNameForTests.LOGIN,
-                UserNameForTests.PASSWORD); 
-        }
-
-
-
 
         [Test]   //Checking Welcom message on the home page
         public void SuccessfulAuthorization()
@@ -78,13 +52,14 @@ namespace ListScreener
         public void InvalidAnswerSingleMail()
         {
             var mainMenu = new HomePagePageObject(_webDriver);
-            mainMenu.VerificationPage();
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
 
-            var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(
+            mainMenu
+                .VerificationPage()
+                .SinglMail(
                 MailsForSingleMail.MAIL_INVALID);
 
-            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+
             string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
             Assert.AreEqual(
                 ActualAnswerSingleMail, 
@@ -101,13 +76,14 @@ namespace ListScreener
         public void ThreatAnswerSingleMail()
         {
             var mainMenu = new HomePagePageObject(_webDriver);
-            mainMenu.VerificationPage();
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
 
-            var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(
+            mainMenu
+                .VerificationPage()
+                .SinglMail(
                 MailsForSingleMail.MAIL_THREAT);
 
-            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+
             string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
             Assert.AreEqual(
                 ActualAnswerSingleMail, 
@@ -124,13 +100,14 @@ namespace ListScreener
         public void DiscretionaryAnswerSingleMail()
         {
             var mainMenu = new HomePagePageObject(_webDriver);
-            mainMenu.VerificationPage();
+            var formSingleMail = new FormAfterSingleVerify(_webDriver);
 
-            var verifyMenu = new SingleVerificationPageObject(_webDriver);
-            verifyMenu.SinglMail(
+            mainMenu
+                .VerificationPage()
+                .SinglMail(
                 MailsForSingleMail.MAIL_DESCRETIONARY);
 
-            var formSingleMail = new FormAfterSingleVerify(_webDriver);
+
             string ActualAnswerSingleMail = formSingleMail.messageSinglMail();
             Assert.AreEqual(
                 ActualAnswerSingleMail, 
@@ -178,7 +155,6 @@ namespace ListScreener
         {
             var mainMenu = new HomePagePageObject(_webDriver);
             var userMenu = new UsersPageObject(_webDriver);
-            var popupEditUser = new FormEditUserPageObject(_webDriver);
 
 
             mainMenu
@@ -324,14 +300,5 @@ namespace ListScreener
             Assert.AreNotEqual(getFirstNameDeleted,DataForCreateUser.FIRST_NAME);
         }
 
-
-
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            _webDriver.Quit();
-        }
     }
 }

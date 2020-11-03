@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -18,6 +19,8 @@ namespace ListScreener.Page_Objects
         private readonly By _accountButton = By.XPath("//div[@class='mat-menu-content ng-tns-c58-3']/button");
         private readonly By _logOutButton = By.XPath("//span[text()='Log out']");
         private readonly By _statisticPage = By.XPath("//span[text()='Statistics']");
+      
+        private readonly By _sideBar = By.XPath("item ng-star-inserted");
 
 
 
@@ -74,6 +77,15 @@ namespace ListScreener.Page_Objects
             _webDriver.FindElement(_statisticPage).Click();
             return new StatisticsPageObject(_webDriver);
         } 
+
+        //Go To Side Bar 
+        public HomePagePageObject GoToSideBar(string nameSection)
+        {
+            var sideBar = _webDriver.FindElements(_sideBar).First(x => x.Text == nameSection);
+            sideBar.Click();
+
+            return this;
+        }
 
 
     }

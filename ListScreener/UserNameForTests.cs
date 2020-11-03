@@ -77,4 +77,13 @@ namespace ListScreener.Page_Objects
         public const string ERROR_STATISTICS = "Fields don't match";
     }
 
+    public class NameElemsSideBar
+    {
+        public static string VERIFICATION { get; } = "Verification";
+        public static string STATISTICS { get; } = "Statistics";
+        public static string API_KEY { get; } = "API Key";
+        public static string HISTORY { get; } = "History";
+        public static string USERS { get; } = "Users";
+    }
+
 }
