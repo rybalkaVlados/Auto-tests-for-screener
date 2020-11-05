@@ -9,46 +9,54 @@ namespace ListScreener.Page_Objects
 {
     class BulkVerificationPageObject
     {
-        private IWebDriver _WebDriver;
+        private IWebDriver _webDriver;
 
-        private readonly By _dropZone = By.XPath("//div[@class='computer']/input");
-        private readonly By _startProcessing = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/button");
-        private readonly By _downloadFile = By.XPath("//tbody[@role='rowgroup']/tr/td[6]//span[@class='material-icons red ng-star-inserted']");
-        
-        private readonly By _checkingStatusFile = By.XPath("//tbody[@role='rowgroup']/tr/td[2]/span");
-        private readonly By _checkingProgressFile = By.XPath("//tbody[@role='rowgroup']/tr/td[3]");
+        #region XPath
+        private readonly By dropZone = By.XPath("//div[@class='computer']/input");
+        private readonly By startProcessing = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/button");
+        private readonly By downloadFile = By.XPath("//tbody[@role='rowgroup']/tr/td[6]//span[@class='material-icons red ng-star-inserted']");
+        private readonly By checkingStatusFile = By.XPath("//tbody[@role='rowgroup']/tr/td[2]/span");
+        private readonly By checkingProgressFile = By.XPath("//tbody[@role='rowgroup']/tr/td[3]");
+        #endregion
 
+        #region IWebElements 
+        private IWebElement _dropZone => _webDriver.FindElement(dropZone);
+        private IWebElement _startProcessing => _webDriver.FindElement(startProcessing);
+        private IWebElement _downloadFile => _webDriver.FindElement(downloadFile);
+        private IWebElement _checkingStatusFile => _webDriver.FindElement(checkingStatusFile);
+        private IWebElement _checkingProgressFile => _webDriver.FindElement(checkingProgressFile);
+        #endregion
 
         public BulkVerificationPageObject(IWebDriver webDriver)
         {
-            _WebDriver = webDriver;
+            _webDriver = webDriver;
         }
 
 
-        public HomePagePageObject uploadFileFromComputer(string fileTXT)
+        public HomePagePageObject UploadFileFromComputer(string fileTXT)
         {
-            _WebDriver.FindElement(_dropZone).SendKeys(fileTXT);
+            _dropZone.SendKeys(fileTXT);
 
-            WaitUntil.WaitElement(_WebDriver, _startProcessing);
-            _WebDriver.FindElement(_startProcessing).Click();
+            WaitUntil.WaitElement(_webDriver, startProcessing);
+            _startProcessing.Click();
 
-            WaitUntil.WaitElement(_WebDriver, _downloadFile);
-            _WebDriver.FindElement(_downloadFile).Click();
+            WaitUntil.WaitElement(_webDriver, downloadFile);
+            _downloadFile.Click();
             
-            return new HomePagePageObject(_WebDriver);
+            return new HomePagePageObject(_webDriver);
         }
 
-        public string checkingStatusUploadedFile()
+        public string CheckingStatusUploadedFile()
         {
-            WaitUntil.WaitElement(_WebDriver, _checkingStatusFile);
-            string GetStatusFile = _WebDriver.FindElement(_checkingStatusFile).Text;
+            WaitUntil.WaitElement(_webDriver, checkingStatusFile);
+            string GetStatusFile = _checkingStatusFile.Text;
           
             return GetStatusFile;
         }
 
-        public string checkingProgressUploadedFile()
+        public string CheckingProgressUploadedFile()
         {
-            string GetProgressFile = _WebDriver.FindElement(_checkingProgressFile).Text;
+            string GetProgressFile = _checkingProgressFile.Text;
          
             return GetProgressFile;
         }

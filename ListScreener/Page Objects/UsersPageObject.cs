@@ -11,18 +11,27 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _createUserButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']/span");
-        private readonly By _actualFirstName = By.XPath("//tbody[@role='rowgroup']/tr//td[text()=' 1elladecummo ']");
-        private readonly By _editButton = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/div/mat-icon");
-        private readonly By _deleteUser = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/div/mat-icon[2]");
-        private readonly By _yesButton = By.XPath("//*[@class='ng-star-inserted']/div/button[2]");
+        #region XPath
+        private readonly By createUserButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']/span");
+        private readonly By actualFirstName = By.XPath("//tbody[@role='rowgroup']/tr//td[text()=' 1elladecummo ']");
+        private readonly By editButton = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/div/mat-icon");
+        private readonly By deleteUser = By.XPath("//tbody[@role='rowgroup']/tr/td[6]/div/mat-icon[2]");
+        private readonly By yesButton = By.XPath("//*[@class='ng-star-inserted']/div/button[2]");
+        private readonly By profileIcon = By.XPath("//app-dashboard-layout[@class='ng-star-inserted']/mat-toolbar/button");
+        private readonly By logOutButton = By.XPath("//span[text()='Log out']");
+        private readonly By FirstNameInList = By.XPath("//tbody[@role='rowgroup']/tr//td");
+        #endregion
 
-        private readonly By _profileIcon = By.XPath("//app-dashboard-layout[@class='ng-star-inserted']/mat-toolbar/button");
-        private readonly By _logOutButton = By.XPath("//span[text()='Log out']");
-        private readonly By _FirstNameInList = By.XPath("//tbody[@role='rowgroup']/tr//td");
-
-
-
+        #region IWebElements 
+        private IWebElement _createUserButton => _webDriver.FindElement(createUserButton);
+        private IWebElement _actualFirstName => _webDriver.FindElement(actualFirstName);
+        private IWebElement _editButton => _webDriver.FindElement(editButton);
+        private IWebElement _deleteUser => _webDriver.FindElement(deleteUser);
+        private IWebElement _yesButton => _webDriver.FindElement(yesButton);
+        private IWebElement _profileIcon => _webDriver.FindElement(profileIcon);
+        private IWebElement _logOutButton => _webDriver.FindElement(logOutButton);
+        private IWebElement _FirstNameInList => _webDriver.FindElement(FirstNameInList);
+        #endregion
 
 
 
@@ -36,8 +45,8 @@ namespace ListScreener.Page_Objects
 
         public FormCreateUserPageObject GoToPopupCreateUser()
         {
-            WaitUntil.WaitElement(_webDriver, _createUserButton);
-            _webDriver.FindElement(_createUserButton).Click();
+            WaitUntil.WaitElement(_webDriver, createUserButton);
+            _createUserButton.Click();
             return new FormCreateUserPageObject(_webDriver);
         }
 
@@ -45,24 +54,24 @@ namespace ListScreener.Page_Objects
 
         public string GetFirstName()
         {
-            WaitUntil.WaitElement(_webDriver, _actualFirstName);
-            string FirstName = _webDriver.FindElement(_actualFirstName).Text;
+            WaitUntil.WaitElement(_webDriver, actualFirstName);
+            string FirstName = _actualFirstName.Text;
             return FirstName;
         }
+
 
         public string GetFirstNameInList()
         {
             WaitUntil.WaitSomeInterval();
-            string FirstName = _webDriver.FindElement(_FirstNameInList).Text;
+            string FirstName = _FirstNameInList.Text;
             return FirstName;
         }
 
 
-
         public FormEditUserPageObject GoToEditForm()
         {
-            WaitUntil.WaitElement(_webDriver, _editButton);
-            _webDriver.FindElement(_editButton).Click();
+            WaitUntil.WaitElement(_webDriver, editButton);
+            _editButton.Click();
            
             return new FormEditUserPageObject(_webDriver);
         }
@@ -70,22 +79,22 @@ namespace ListScreener.Page_Objects
         public void DeleteUser()
         {
             WaitUntil.WaitSomeInterval();
-            WaitUntil.WaitElement(_webDriver, _deleteUser);
-            _webDriver.FindElement(_deleteUser).Click();
+            WaitUntil.WaitElement(_webDriver, deleteUser);
+            _deleteUser.Click();
 
-            WaitUntil.WaitElement(_webDriver, _yesButton);
-            _webDriver.FindElement(_yesButton).Click();
+            WaitUntil.WaitElement(_webDriver, yesButton);
+            _yesButton.Click();
         }
 
 
         public DefaultPageObject LogOut()
         {
             Thread.Sleep(3500);
-            WaitUntil.WaitElement(_webDriver, _profileIcon);
-            _webDriver.FindElement(_profileIcon).Click();
+            WaitUntil.WaitElement(_webDriver, profileIcon);
+            _profileIcon.Click();
 
-            WaitUntil.WaitElement(_webDriver, _logOutButton);
-            _webDriver.FindElement(_logOutButton).Click();
+            WaitUntil.WaitElement(_webDriver, logOutButton);
+            _logOutButton.Click();
             return new DefaultPageObject(_webDriver);
         }
     }

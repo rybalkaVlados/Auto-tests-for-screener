@@ -14,11 +14,17 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _fieldForMails = By.XPath("//input[@placeholder='example@mail.com']");
-        private readonly By _verifyButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']");
+        #region XPath
+        private readonly By fieldForMails = By.XPath("//input[@placeholder='example@mail.com']");
+        private readonly By verifyButton = By.XPath("//button[@class='mat-focus-indicator red-btn mat-button mat-button-base']");
+        private readonly By uploadFromComputerTab = By.XPath("//div[@class='uploads-list ng-star-inserted']/div");
+        #endregion
 
-        private readonly By _uploadFromComputerTab = By.XPath("//div[@class='uploads-list ng-star-inserted']/div");
-
+        #region IWebElements 
+        private IWebElement _fieldForMails => _webDriver.FindElement(fieldForMails);
+        private IWebElement _verifyButton => _webDriver.FindElement(verifyButton);
+        private IWebElement _uploadFromComputerTab => _webDriver.FindElement(uploadFromComputerTab);
+        #endregion
 
 
 
@@ -31,9 +37,9 @@ namespace ListScreener.Page_Objects
 
         public FormAfterSingleVerify SinglMail(string mail)
         {
-            WaitUntil.WaitElement(_webDriver, _fieldForMails);
-            _webDriver.FindElement(_fieldForMails).SendKeys(mail);
-            _webDriver.FindElement(_verifyButton).Click();
+            WaitUntil.WaitElement(_webDriver, fieldForMails);
+            _fieldForMails.SendKeys(mail);
+            _verifyButton.Click();
             return new FormAfterSingleVerify(_webDriver);
         }
 
@@ -41,7 +47,7 @@ namespace ListScreener.Page_Objects
         public BulkVerificationPageObject GoToBulkVerification()
         {
             Thread.Sleep(1000);
-            _webDriver.FindElement(_uploadFromComputerTab).Click();
+            _uploadFromComputerTab.Click();
             return new BulkVerificationPageObject(_webDriver);
         }
 

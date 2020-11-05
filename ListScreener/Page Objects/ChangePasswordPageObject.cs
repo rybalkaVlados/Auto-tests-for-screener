@@ -10,40 +10,41 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _currentPassword = By.XPath("//input[@formcontrolname='password']");
-        private readonly By _newPassword = By.XPath("//input[@formcontrolname='newPassword']");
-        private readonly By _confirmNewPassword = By.XPath("//input[@formcontrolname='repeatPassword']");
-        private readonly By _changeButton = By.XPath("//span[text()='Change']");
+        #region XPath
+        private readonly By currentPassword = By.XPath("//input[@formcontrolname='password']");
+        private readonly By newPassword = By.XPath("//input[@formcontrolname='newPassword']");
+        private readonly By confirmNewPassword = By.XPath("//input[@formcontrolname='repeatPassword']");
+        private readonly By changeButton = By.XPath("//span[text()='Change']");
+        #endregion
+
+
+        #region IWebElements      
+        private IWebElement _currentPassword => _webDriver.FindElement(currentPassword);
+        private IWebElement _newPassword => _webDriver.FindElement(newPassword);
+        private IWebElement _confirmNewPassword => _webDriver.FindElement(confirmNewPassword);
+        private IWebElement _changeButton => _webDriver.FindElement(changeButton);
+        #endregion
+
+
+
+
 
         public ChangePasswordPageObject(IWebDriver webDriver)
         {
             _webDriver = webDriver;
+
         }
 
-        public AccountPageObject ChangePasswordForm(string currentPassword, string newPassword, string confirmNewPassword)
+        public AccountPageObject ChangePasswordForm(string currentPassw, string newPassw, string confirmNewPassw)
         {
-            _webDriver.FindElement(_currentPassword).SendKeys(currentPassword);
-            _webDriver.FindElement(_newPassword).SendKeys(newPassword);
-            _webDriver.FindElement(_confirmNewPassword).SendKeys(confirmNewPassword);
-            _webDriver.FindElement(_changeButton).Click();
-
-            return new AccountPageObject(_webDriver);
-        }
-
-        public AccountPageObject ChangePasswordBack(string newPassword, string currentPassword, string confirmNewPassword)
-        {
+            WaitUntil.WaitElement(_webDriver, currentPassword);
+            _currentPassword.SendKeys(currentPassw);
+            _newPassword.SendKeys(newPassw);
+            _confirmNewPassword.SendKeys(confirmNewPassw);
+            _changeButton.Click();
             WaitUntil.WaitSomeInterval(2);
-            _webDriver.FindElement(_currentPassword).SendKeys(newPassword);
-
-            WaitUntil.WaitElement(_webDriver, _newPassword);
-            _webDriver.FindElement(_newPassword).SendKeys(currentPassword);
-          
-            _webDriver.FindElement(_confirmNewPassword).SendKeys(confirmNewPassword);
-            _webDriver.FindElement(_changeButton).Click();
-
-            WaitUntil.WaitSomeInterval();
-
             return new AccountPageObject(_webDriver);
         }
     }
+
 }

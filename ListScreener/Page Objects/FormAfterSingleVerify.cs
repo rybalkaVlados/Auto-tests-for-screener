@@ -10,9 +10,15 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _answerSingleMail = By.XPath("//div[@class='description']/b");
-        private readonly By _closeButton = By.XPath("//span[text()='Close']/parent::*");
+        #region XPath
+        private readonly By answerSingleMail = By.XPath("//div[@class='description']/b");
+        private readonly By closeButton = By.XPath("//span[text()='Close']/parent::*");
+        #endregion
 
+        #region IWebElements 
+        private IWebElement _answerSingleMail => _webDriver.FindElement(answerSingleMail);
+        private IWebElement _closeButton => _webDriver.FindElement(closeButton);
+        #endregion
 
 
         public FormAfterSingleVerify(IWebDriver webDriver)
@@ -22,16 +28,16 @@ namespace ListScreener.Page_Objects
 
         public SingleVerificationPageObject CloseForm()
         {
-            WaitUntil.WaitElement(_webDriver, _closeButton);
-            _webDriver.FindElement(_closeButton).Click();
+            WaitUntil.WaitElement(_webDriver, closeButton);
+            _closeButton.Click();
             return new SingleVerificationPageObject(_webDriver);
         }
 
 
         public string messageSinglMail()
         {
-            WaitUntil.WaitElement(_webDriver, _answerSingleMail);
-            string GetAnswer = _webDriver.FindElement(_answerSingleMail).Text;
+            WaitUntil.WaitElement(_webDriver, answerSingleMail);
+            string GetAnswer = _answerSingleMail.Text;
             return GetAnswer;
         }
     }

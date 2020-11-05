@@ -10,14 +10,24 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
+        #region XPath
         //private readonly By _emailField = By.XPath("//form[@class='ng-invalid ng-dirty ng-touched']/div");
-        private readonly By _emailField = By.XPath("//input[@formcontrolname='email']");
-        private readonly By _userNameField = By.XPath("//input[@formcontrolname='userName']");
-        private readonly By _firstNameField = By.XPath("//input[@formcontrolname='firstName']");
-        private readonly By _lastNameField = By.XPath("//input[@formcontrolname='lastName']");
-        private readonly By _passwordField = By.XPath("//input[@formcontrolname='password']");
-        private readonly By _createButton = By.XPath("//div[@class='mat-dialog-actions']/button[2]");
+        private readonly By emailField = By.XPath("//input[@formcontrolname='email']");
+        private readonly By userNameField = By.XPath("//input[@formcontrolname='userName']");
+        private readonly By firstNameField = By.XPath("//input[@formcontrolname='firstName']");
+        private readonly By lastNameField = By.XPath("//input[@formcontrolname='lastName']");
+        private readonly By passwordField = By.XPath("//input[@formcontrolname='password']");
+        private readonly By createButton = By.XPath("//div[@class='mat-dialog-actions']/button[2]");
+        #endregion
 
+        #region IWebElements 
+        private IWebElement _emailField => _webDriver.FindElement(emailField);
+        private IWebElement _userNameField => _webDriver.FindElement(userNameField);
+        private IWebElement _firstNameField => _webDriver.FindElement(firstNameField);
+        private IWebElement _lastNameField => _webDriver.FindElement(lastNameField);
+        private IWebElement _passwordField => _webDriver.FindElement(passwordField);
+        private IWebElement _createButton => _webDriver.FindElement(createButton);
+        #endregion
 
 
         public FormCreateUserPageObject(IWebDriver webDriver)
@@ -28,14 +38,14 @@ namespace ListScreener.Page_Objects
 
         public UsersPageObject fillFieldForCreateUser(string email, string userName, string firstName, string lastName, string password)
         {
-            WaitUntil.WaitElement(_webDriver, _emailField);
-            _webDriver.FindElement(_emailField).SendKeys(email);
-            _webDriver.FindElement(_userNameField).Clear();
-            _webDriver.FindElement(_userNameField).SendKeys(userName);
-            _webDriver.FindElement(_firstNameField).SendKeys(firstName);
-            _webDriver.FindElement(_lastNameField).SendKeys(lastName);
-            _webDriver.FindElement(_passwordField).SendKeys(password);
-            _webDriver.FindElement(_createButton).Click();
+            WaitUntil.WaitElement(_webDriver, emailField);
+            _emailField.SendKeys(email);
+            _userNameField.Clear();
+            _userNameField.SendKeys(userName);
+            _firstNameField.SendKeys(firstName);
+            _lastNameField.SendKeys(lastName);
+            _passwordField.SendKeys(password);
+            _createButton.Click();
             return new UsersPageObject(_webDriver);
         }
 

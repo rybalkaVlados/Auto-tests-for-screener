@@ -129,18 +129,18 @@ namespace ListScreener
             mainMenu
                 .VerificationPage()
                 .GoToBulkVerification()
-                .uploadFileFromComputer(
+                .UploadFileFromComputer(
                 MailsForBulkVerification.ONE_MAIL_TXT);
             Thread.Sleep(700);
 
-           string ActualStatusUploadedFile = bulkVerifyMenu.checkingStatusUploadedFile();
+           string ActualStatusUploadedFile = bulkVerifyMenu.CheckingStatusUploadedFile();
            Assert.AreEqual(
                 ActualStatusUploadedFile, 
                 MailsForBulkVerification.EXPECTED_STATUS_FILE, 
                 MailsForSingleMail.ERROR_MESSAGE_FOR_ASSERT);
 
 
-            string ActualProgressUploadedFile = bulkVerifyMenu.checkingProgressUploadedFile();
+            string ActualProgressUploadedFile = bulkVerifyMenu.CheckingProgressUploadedFile();
             Assert.AreEqual(
                 ActualProgressUploadedFile, 
                 MailsForBulkVerification.EXPECTED_PROGRESS_FILE, 
@@ -209,7 +209,7 @@ namespace ListScreener
                 DataForChangePassword.NEW_PASSWORD,
                 DataForChangePassword.NEW_PASSWORD)
                 .ChangePassword()
-                .ChangePasswordBack(
+                .ChangePasswordForm(
                 DataForChangePassword.NEW_PASSWORD,
                 DataForChangePassword.CURRENT_PASSWORD,
                 DataForChangePassword.CURRENT_PASSWORD);
@@ -246,44 +246,44 @@ namespace ListScreener
                 MailsForSingleMail.MAIL_VALID)
                 .CloseForm()
                 .GoToBulkVerification()
-                .uploadFileFromComputer(
+                .UploadFileFromComputer(
                 MailsForBulkVerification.CHECK_STATISTIC_MAIL)
                 .StatisticPage();
 
             WaitUntil.WaitSomeInterval();
 
             
-            string getVerifiedMails = statisticsMenu.getVerifiedMails();
+            string getVerifiedMails = statisticsMenu.GetVerifiedMails();
             Assert.AreEqual(getVerifiedMails,DataStatistic.VERIFIED_MAILS,DataStatistic.ERROR_STATISTICS);
             
-            string getValid = statisticsMenu.getValid();
+            string getValid = statisticsMenu.GetValid();
             Assert.AreEqual(getValid,DataStatistic.VALID,DataStatistic.ERROR_STATISTICS);
           
-            string getInvalid = statisticsMenu.getInvalid();
+            string getInvalid = statisticsMenu.GetInvalid();
             Assert.AreEqual(getInvalid,DataStatistic.INVALID,DataStatistic.ERROR_STATISTICS);
           
-            string getBulkVerification = statisticsMenu.getBulkVerification();
+            string getBulkVerification = statisticsMenu.GetBulkVerification();
             Assert.AreEqual(getBulkVerification,DataStatistic.BULK_VERIFICATION,DataStatistic.ERROR_STATISTICS);
           
-            string getVerificationLists = statisticsMenu.getVerificationLists();
+            string getVerificationLists = statisticsMenu.GetVerificationLists();
             Assert.AreEqual(getVerificationLists,DataStatistic.VERIFICATION_LISTS,DataStatistic.ERROR_STATISTICS);
            
-            string getSingleVerification = statisticsMenu.getSingleVerification();
+            string getSingleVerification = statisticsMenu.GetSingleVerification();
             Assert.AreEqual(getSingleVerification,DataStatistic.SINGLE_VERIFICATION,DataStatistic.ERROR_STATISTICS);
           
-            string getTotal = statisticsMenu.getTotal();
+            string getTotal = statisticsMenu.GetTotal();
             Assert.AreEqual(getTotal,DataStatistic.TOTAL,DataStatistic.ERROR_STATISTICS);
           
-            string getAcceptAll = statisticsMenu.getAcceptAll();
+            string getAcceptAll = statisticsMenu.GetAcceptAll();
             Assert.AreEqual(getAcceptAll,DataStatistic.ACCEPT_ALL,DataStatistic.ERROR_STATISTICS);
          
-            string getRole = statisticsMenu.getRole();
+            string getRole = statisticsMenu.GetRole();
             Assert.AreEqual(getRole,DataStatistic.ROLE,DataStatistic.ERROR_STATISTICS);
           
-            string getSpam = statisticsMenu.getSpam();
+            string getSpam = statisticsMenu.GetSpam();
             Assert.AreEqual(getSpam,DataStatistic.SPAM,DataStatistic.ERROR_STATISTICS);
           
-            string getDisposable = statisticsMenu.getDisposable();
+            string getDisposable = statisticsMenu.GetDisposable();
             Assert.AreEqual(getDisposable,DataStatistic.DISPOSABLE,DataStatistic.ERROR_STATISTICS);
 
             mainMenu

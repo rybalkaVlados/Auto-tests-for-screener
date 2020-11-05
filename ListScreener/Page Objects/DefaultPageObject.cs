@@ -10,10 +10,13 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _goToAuth = By.XPath("//span[text()='Log in']/parent::*");
+        #region XPath
+        private readonly By goToAuth = By.XPath("//span[text()='Log in']/parent::*");
+        #endregion
 
-
-
+        #region IWebElements 
+        private IWebElement _goToAuth => _webDriver.FindElement(goToAuth);
+        #endregion
 
         public DefaultPageObject(IWebDriver webDriver)
         {
@@ -22,8 +25,8 @@ namespace ListScreener.Page_Objects
 
         public AuthorizationPageObject LogIn()
         {
-            WaitUntil.WaitElement(_webDriver, _goToAuth);
-            _webDriver.FindElement(_goToAuth).Click();
+            WaitUntil.WaitElement(_webDriver, goToAuth);
+            _goToAuth.Click();
 
             return new AuthorizationPageObject(_webDriver);
         }

@@ -12,13 +12,7 @@ namespace ListScreener
     {
         protected IWebDriver _webDriver;
 
-        /*
-        [OneTimeSetUp]
-        protected void BoBeforeAllTests()
-        {
-            _webDriver = new ChromeDriver();
-        }
-        */
+
         [OneTimeTearDown]
         protected void DoAfterAllTheTests()
         {
@@ -38,7 +32,10 @@ namespace ListScreener
             _webDriver.Manage().Cookies.DeleteAllCookies();
             _webDriver.Navigate().GoToUrl(UserNameForTests.URL);
             _webDriver.Manage().Window.Maximize();
-            WaitUntil.ShouldLocate(_webDriver, UserNameForTests.URL);
+            WaitUntil
+                .ShouldLocate(
+                _webDriver, 
+                UserNameForTests.URL);
 
             var defaultPage = new DefaultPageObject(_webDriver);
 

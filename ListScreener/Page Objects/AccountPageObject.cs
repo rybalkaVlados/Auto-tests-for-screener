@@ -8,23 +8,28 @@ namespace ListScreener.Page_Objects
 {
     class AccountPageObject
     {
-        private IWebDriver _WebDriver;
+        private IWebDriver _webDriver;
 
-        private readonly By _changePasswordButton = By.LinkText("Change password");
+        #region XPath
+        private readonly By changePasswordButton = By.LinkText("Change password");
+        #endregion
 
+        #region IWebElements 
+        private IWebElement _changePasswordButton => _webDriver.FindElement(changePasswordButton);
+        #endregion
 
         public AccountPageObject(IWebDriver webDriver)
         {
-            _WebDriver = webDriver;
+            _webDriver = webDriver;
         }
 
 
 
         public ChangePasswordPageObject ChangePassword()
         {
-            Thread.Sleep(500);
-            _WebDriver.FindElement(_changePasswordButton).Click();
-            return new ChangePasswordPageObject(_WebDriver);
+            WaitUntil.WaitElement(_webDriver, changePasswordButton);
+            _changePasswordButton.Click();
+            return new ChangePasswordPageObject(_webDriver);
         } 
     }
 }

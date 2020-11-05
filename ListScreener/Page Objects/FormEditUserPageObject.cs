@@ -10,9 +10,17 @@ namespace ListScreener.Page_Objects
     {
         private IWebDriver _webDriver;
 
-        private readonly By _checkBox = By.XPath("//label[@class='mat-slide-toggle-label']/div/div/div");
-        private readonly By _passwordField = By.XPath("//input[@formcontrolname='password']");
-        private readonly By _saveButton = By.XPath("//div[@class='mat-dialog-actions']/button[2]");
+        #region XPath
+        private readonly By checkBox = By.XPath("//label[@class='mat-slide-toggle-label']/div/div/div");
+        private readonly By passwordField = By.XPath("//input[@formcontrolname='password']");
+        private readonly By saveButton = By.XPath("//div[@class='mat-dialog-actions']/button[2]");
+        #endregion
+
+        #region IWebElements 
+        private IWebElement _checkBox => _webDriver.FindElement(checkBox);
+        private IWebElement _passwordField => _webDriver.FindElement(passwordField);
+        private IWebElement _saveButton => _webDriver.FindElement(saveButton);
+        #endregion
 
 
 
@@ -24,12 +32,12 @@ namespace ListScreener.Page_Objects
 
         public UsersPageObject EditUserPassword(string passwordEdit)
         {
-            WaitUntil.WaitElement(_webDriver, _checkBox);
-            _webDriver.FindElement(_checkBox).Click();
+            WaitUntil.WaitElement(_webDriver, checkBox);
+            _checkBox.Click();
 
-            WaitUntil.WaitElement(_webDriver, _passwordField);
-            _webDriver.FindElement(_passwordField).SendKeys(passwordEdit);
-            _webDriver.FindElement(_saveButton).Click();
+            WaitUntil.WaitElement(_webDriver, passwordField);
+            _passwordField.SendKeys(passwordEdit);
+            _saveButton.Click();
             return new UsersPageObject(_webDriver);
         }
 
