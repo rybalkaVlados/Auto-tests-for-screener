@@ -14,13 +14,16 @@ namespace ListScreener.Page_Objects
         #region XPath
         private readonly By fieldEmail = By.XPath("//input[@formcontrolname='email']");
         private readonly By fieldPassword = By.XPath("//input[@formcontrolname='password']");
-        private readonly By loginButton = By.XPath("//span[text()='Log in']");
+        private readonly By btnLogIn = By.XPath("//span[text()='Log in']");
+        private readonly By btnRegisterNow = By.XPath("//a[text()='Register now']");
+
         #endregion
 
         #region IWebElements 
         private IWebElement _fieldEmail => _webDriver.FindElement(fieldEmail);
         private IWebElement _fieldPassword => _webDriver.FindElement(fieldPassword);
-        private IWebElement _loginButton => _webDriver.FindElement(loginButton);
+        private IWebElement _btnLogIn => _webDriver.FindElement(btnLogIn);
+        private IWebElement _btnRegisterNow => _webDriver.FindElement(btnRegisterNow);
         #endregion
 
 
@@ -33,15 +36,22 @@ namespace ListScreener.Page_Objects
 
 
 
-        public HomePagePageObject SignIn(string login, string password)
+        public CompaniesPagePO SignIn(string login, string password)
         {
             WaitUntil.WaitElement(_webDriver, fieldEmail);
             _fieldEmail.SendKeys(login);
             _fieldPassword.SendKeys(password);
-            _loginButton.Click();
+            _btnLogIn.Click();
             Thread.Sleep(1500);
 
-            return new HomePagePageObject(_webDriver);
+            return new CompaniesPagePO(_webDriver);
+        }
+
+        public RegisterFormPO ClickRegisterNow()
+        {
+            WaitUntil.WaitElement(_webDriver, btnRegisterNow);
+            _btnRegisterNow.Click();
+            return new RegisterFormPO(_webDriver);
         }
     }
 }
